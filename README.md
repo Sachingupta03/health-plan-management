@@ -1,4 +1,5 @@
-🏥 Health Plan Module
+###🏥 Health Plan Module.
+
 This module manages health insurance plans in your Health Insurance Management System.
 It uses Spring Boot, REST API, MySQL, and JPA to perform the full set of CRUD operations.
 1. Add a New Health Plan
