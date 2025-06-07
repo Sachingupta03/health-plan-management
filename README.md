@@ -1,70 +1,69 @@
-###🏥 Health Plan Module.
+🏥 Health Plan Module – Feature Flow
+This module handles complete CRUD operations for health insurance plans in the system using Spring Boot and REST APIs.
 
-This module manages health insurance plans in your Health Insurance Management System.
-It uses Spring Boot, REST API, MySQL, and JPA to perform the full set of CRUD operations.
-1. Add a New Health Plan
-🔗 Endpoint: POST /api/plans
+1️⃣ Add a New Health Plan
+Endpoint: POST /api/plans
+Flow:
 
-📥 Request Payload (JSON):
-🔄 Flow:
-The request is sent to HealthPlanController.addPlan().
+1. Client sends a JSON request containing plan details.
 
-It delegates the task to HealthPlanService.addPlan().
+2. Controller receives the request and delegates to the service.
 
-The service calls HealthPlanRepository.save(plan) which is a JPA method.
+3. Service passes the data to the repository.
 
-The entity is persisted in the MySQL database.
+4. Repository saves the plan to the database.
 
-The saved entity (with generated ID) is returned.
+5. The system returns the saved plan with a generated ID.
 
- 2. Get All Health Plans
-🔗 Endpoint: GET /api/plans
+2️⃣ Get All Health Plans
+Endpoint: GET /api/plans
+Flow:
 
-🔄 Flow:
-Client sends a GET request.
+1. Client sends a GET request.
 
-Controller → Service → Repository → findAll() returns a List<HealthPlan>.
+2. Controller calls the service.
 
-Spring Boot auto-converts the list to JSON using Jackson.
+3. Service fetches all plans via the repository.
 
- 3. Get a Health Plan by ID
-🔗 Endpoint: GET /api/plans/{id}
+4.The list of all health plans is returned as JSON.
 
-🔄 Flow:
-Controller receives the id from the path variable.
+3️⃣ Get a Health Plan by ID
+Endpoint: GET /api/plans/{id}
+Flow:
 
-Service method: getPlanById(int id) calls repository.findById(id).
+1. Client provides the ID in the URL path.
 
-If not found, throw ResourceNotFoundException (custom exception).
+2. Controller receives it and calls the service.
 
-If found, return the health plan object.
+3. Service fetches the plan by ID using the repository.
 
- 4. Update an Existing Plan
-🔗 Endpoint: PUT /api/plans/{id}
+4. If found, the plan is returned; if not, an error is thrown.
 
-📥 Request Payload:
-🔄 Flow:
-Controller receives id and body.
+4️⃣ Update an Existing Health Plan
+Endpoint: PUT /api/plans/{id}
+Flow:
 
-Calls service.updatePlan(id, plan).
+1. Client sends the updated plan data with the ID in the path.
 
-Service fetches the existing plan with getPlanById(id).
+2. Controller passes this to the service.
 
-Updates individual fields, then saves using repository.save().
+3. Service retrieves the existing plan and updates it.
 
- 5. Delete a Health Plan
-🔗 Endpoint: DELETE /api/plans/{id}
+4. Repository saves the updated plan back to the database.
 
-🔄 Flow:
-Controller receives the id.
+5. Updated plan is returned.
 
-Calls service.deletePlan(id).
+5️⃣ Delete a Health Plan
+Endpoint: DELETE /api/plans/{id}
+Flow:
 
-Service checks if the plan exists.
+1. Client sends a DELETE request with the plan ID.
 
-If yes, repository.delete(healthPlan) is called.
+2. Controller calls the service to delete it.
 
-If not, throws ResourceNotFoundException.
+3. Service checks if the plan exists.
 
+4. If found, it is deleted via the repository.
 
+5.A success message is returned.
 
